@@ -1,4 +1,4 @@
-import express from 'express';
+import express, { urlencoded } from 'express';
 import sequelize from './db.js'; 
 import School from './models/school.model.js';
 import schoolRouter from './routes/school.route.js';
@@ -33,6 +33,8 @@ const initializeDatabase = async () => {
 
 initializeDatabase();
 
+app.use(express.json())
+app.use(express.urlencoded())
 app.use('/api/v1/school',schoolRouter)
 
 app.get('/', (req, res) => {
