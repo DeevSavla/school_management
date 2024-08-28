@@ -130,6 +130,7 @@ const listAllSchoolsController = async (req, res) => {
 
         const schools = await School.findAll();
 
+        //add the schools into the variable and then sort them  
         const sortedDistanceSchools = schools.map(school => {
             const distance = calculateDistance(longitude, latitude, school.longitude, school.latitude);
             return {
