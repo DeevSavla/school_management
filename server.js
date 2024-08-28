@@ -1,6 +1,7 @@
 import express from 'express';
 import sequelize from './db.js'; 
 import School from './models/school.model.js';
+import schoolRouter from './routes/school.route.js';
 
 const app = express();
 
@@ -31,6 +32,8 @@ const initializeDatabase = async () => {
 };
 
 initializeDatabase();
+
+app.use('/api/v1/school',schoolRouter)
 
 app.get('/', (req, res) => {
     res.send('Hello World');

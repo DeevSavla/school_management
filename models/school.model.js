@@ -16,11 +16,11 @@ const School = sequelize.define('school', {
         allowNull: false,
     },
     longitude: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.FLOAT,
         allowNull: false,
     },
     latitude: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.FLOAT,
         allowNull: false,
     }
 }, {
