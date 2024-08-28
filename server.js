@@ -1,15 +1,8 @@
 import express from 'express';
-import { config as configDotenv } from 'dotenv';
-import { Sequelize } from 'sequelize';
-
-configDotenv();
+import sequelize from './db.js'; 
+import School from './models/school.model.js';
 
 const app = express();
-
-const sequelize = new Sequelize(process.env.DB_NAME || '', process.env.USER, process.env.PASSWORD, {
-    host: process.env.HOST,
-    dialect: 'mysql'
-});
 
 const initializeDatabase = async () => {
     try {
@@ -27,9 +20,13 @@ const initializeDatabase = async () => {
             await sequelize.authenticate();
             console.log('Switched to the "school_management" database');
         }
+
+        // creates the schools table
+        await sequelize.sync({ force: false }); // { force: false } avoids dropping the table if it already exists
+    
     } catch (error) {
         console.error('Error while connecting to MySQL:', error);
-        process.exit(1); // Exit the process if there is a critical error
+        process.exit(1); 
     }
 };
 
@@ -44,6 +41,7 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
 });
+
 
 
 
